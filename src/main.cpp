@@ -64,9 +64,11 @@ void callback(char* inTopic, byte* inPayload, unsigned int length) {
       //out0State = true;    //force synchronization of the ledState variable with the MQTT switch
       digitalWrite(out0, HIGH); 
       Serial.print(inTopic);
-      Serial.println("Up Yers!");
+      Serial.println(": ON");
     }else{
       digitalWrite(out0, LOW);
+      Serial.print(inTopic);
+      Serial.println(": OFF");
     }  
   }
 
@@ -75,9 +77,11 @@ void callback(char* inTopic, byte* inPayload, unsigned int length) {
       //out1State = true;    //force synchronization of the ledState variable with the MQTT switch
       digitalWrite(out1, HIGH); 
       Serial.print(inTopic);
-      Serial.println("F Yeah!");      
+      Serial.println(": ON");      
     }else{
       digitalWrite(out1, LOW);
+      Serial.print(inTopic);
+      Serial.println(": OFF");    
     }
   }
 return;  
