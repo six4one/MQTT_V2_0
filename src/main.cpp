@@ -31,8 +31,6 @@ unsigned int length;
 
 String outPayload = "";
 
-//String inTopic0 = "furnace/f1/out0";
-
 boolean in0Previous =0;
 boolean in1Previous =0;
 boolean in2Previous =0;
@@ -43,13 +41,13 @@ boolean in0State = false;
 boolean in1State = false;
 boolean in2State = false;
 
-unsigned long lastTime =0;    // obsolete
 unsigned long lastTimeT1 =0;
 unsigned long lastTimeIn0 =0;
 unsigned long lastTimeIn1 =0;
 unsigned long lastTimeIn2 =0; 
 unsigned long currentTime =0;
-int publishInterval = 3000;   //number of milliseconds for periodic publish commands
+
+int publishInterval = 3000;   //number of milliseconds for periodic publishing data logging events
 int debounceDelay = 20;       //delay to ensure input signal debounce in milliseconds
 
 void callback(char* inTopic, byte* inPayload, unsigned int length) {
