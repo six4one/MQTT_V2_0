@@ -43,10 +43,14 @@ boolean in0State = false;
 boolean in1State = false;
 boolean in2State = false;
 
-unsigned long lastTime =0; 
+unsigned long lastTime =0;    // obsolete
+unsigned long lastTimeT1 =0;
+unsigned long lastTimeIn0 =0;
+unsigned long lastTimeIn1 =0;
+unsigned long lastTimeIn2 =0; 
 unsigned long currentTime =0;
-int publishInterval = 3000;  //number of milliseconds for periodic publish commands
-
+int publishInterval = 3000;   //number of milliseconds for periodic publish commands
+int debounceDelay = 20;       //delay to ensure input signal debounce in milliseconds
 
 void callback(char* inTopic, byte* inPayload, unsigned int length) {
  
@@ -157,7 +161,7 @@ void loop() {
 
 
 /*
-  if(currentTime-lastTime >= publishInterval){
+  if(currentTime-lastTimeT1 >= publishInterval){
     double temp = thermocouple.readCelsius();
     if (isnan(temp)) {
       Serial.println("Something wrong with thermocouple!");
@@ -184,75 +188,91 @@ void loop() {
   // Resolve the hardware inputs
   in0Current = digitalRead(in0);
   if(in0Current != in0Previous){
-    delay(20);                    //debounce delay
-    if(in0Current != in0Previous){
-      if(in0Current == true){     //rising edge
-        in0State = !in0State;
-        outPayload = String(in0State);
-        Serial.println ("Button0 Pressed!!!");
-        Serial.print ("Payload: ");
-        Serial.print (in0State);
-        Serial.print (" / ");
-        Serial.print (outPayload);
-        if (client.publish(outTopic0, (char*) outPayload.c_str())){
-           Serial.println("Publish ok");
-        }else {
-            Serial.println("Publish failed");
+    if (currentTime-lastTimeIn0 > debounceDelay){;    //debounce delay
+      if(in0Current != in0Previous){
+        if(in0Current == true){     //rising edge
+          //in0State = !in0State;
+          //outPayload = String(in0State);
+          outPayload = "1";
+          Serial.println ("Button 0 Pressed!!!");
+          if (client.publish(outTopic0, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
+        }else{    //falling edge
+          outPayload = "0";
+          Serial.println ("Button 0 Released!!!");
+          if (client.publish(outTopic0, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
         }
-      }else{    //outPayload = "0";
-        Serial.println ("Button0 Released!!!");
+        in0Previous = in0Current;   
       }
-      in0Previous = in0Current;   
     }
   }
 
-in1Current = digitalRead(in1);
-if(in1Current != in1Previous){
-    delay(20);                    //debounce delay
-    if(in1Current != in1Previous){
-      if(in1Current == true){     //rising edge
-        in1State = !in1State;
-        outPayload = String(in1State);
-        Serial.println ("Button1 Pressed!!!");
-        Serial.print ("Payload: ");
-        Serial.print (in1State);
-        Serial.print (" / ");
-        Serial.print (outPayload);
-        if (client.publish(outTopic1, (char*) outPayload.c_str())){
-           Serial.println("Publish ok");
-        }else {
-            Serial.println("Publish failed");
+  in1Current = digitalRead(in1);
+  if(in1Current != in1Previous){
+    if (currentTime-lastTimeIn1 > debounceDelay){;    //debounce delay
+      if(in1Current != in1Previous){
+        if(in1Current == true){     //rising edge
+          //in0State = !in0State;
+          //outPayload = String(in0State);
+          outPayload = "1";
+          Serial.println ("Button 1 Pressed!!!");
+          if (client.publish(outTopic1, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
+        }else{    //falling edge
+          outPayload = "0";
+          Serial.println ("Button 1 Released!!!");
+          if (client.publish(outTopic1, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
         }
-      }else{    //outPayload = "1";
-        Serial.println ("Button1 Released!!!");
+        in1Previous = in1Current;   
       }
-      in1Previous = in1Current;   
     }
   }
 
-in2Current = digitalRead(in2);
-if(in2Current != in2Previous){
-    delay(20);                    //debounce delay
-    if(in2Current != in2Previous){
-      if(in2Current == true){     //rising edge
-        in2State = !in2State;
-        outPayload = String(in2State);
-        Serial.println ("Button2 Pressed!!!");
-        Serial.print ("Payload: ");
-        Serial.print (in2State);
-        Serial.print (" / ");
-        Serial.print (outPayload);
-        if (client.publish(outTopic2, (char*) outPayload.c_str())){
-           Serial.println("Publish ok");
-        }else {
-            Serial.println("Publish failed");
+
+  in2Current = digitalRead(in2);
+  if(in2Current != in2Previous){
+    if (currentTime-lastTimeIn2 > debounceDelay){;    //debounce delay
+      if(in2Current != in2Previous){
+        if(in2Current == true){     //rising edge
+          //in0State = !in0State;
+          //outPayload = String(in0State);
+          outPayload = "1";
+          Serial.println ("Button 2 Pressed!!!");
+          if (client.publish(outTopic2, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
+        }else{    //falling edge
+          outPayload = "0";
+          Serial.println ("Button 2 Released!!!");
+          if (client.publish(outTopic2, (char*) outPayload.c_str())){
+            Serial.println("Publish ok");
+          }else {
+              Serial.println("Publish failed");
+          }
         }
-      }else{    //outPayload = "1";
-        Serial.println ("Button2 Released!!!");
+        in2Previous = in2Current;   
       }
-      in2Previous = in2Current;   
     }
   }
+
+
+
 
   delay(100);
 }
