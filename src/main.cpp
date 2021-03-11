@@ -191,8 +191,6 @@ void loop() {
     if (currentTime-lastTimeIn0 > debounceDelay){;    //debounce delay
       if(in0Current != in0Previous){
         if(in0Current == true){     //rising edge
-          //in0State = !in0State;
-          //outPayload = String(in0State);
           outPayload = "1";
           Serial.println ("Button 0 Pressed!!!");
           if (client.publish(outTopic0, (char*) outPayload.c_str())){
@@ -219,8 +217,6 @@ void loop() {
     if (currentTime-lastTimeIn1 > debounceDelay){;    //debounce delay
       if(in1Current != in1Previous){
         if(in1Current == true){     //rising edge
-          //in0State = !in0State;
-          //outPayload = String(in0State);
           outPayload = "1";
           Serial.println ("Button 1 Pressed!!!");
           if (client.publish(outTopic1, (char*) outPayload.c_str())){
@@ -248,8 +244,6 @@ void loop() {
     if (currentTime-lastTimeIn2 > debounceDelay){;    //debounce delay
       if(in2Current != in2Previous){
         if(in2Current == true){     //rising edge
-          //in0State = !in0State;
-          //outPayload = String(in0State);
           outPayload = "1";
           Serial.println ("Button 2 Pressed!!!");
           if (client.publish(outTopic2, (char*) outPayload.c_str())){
