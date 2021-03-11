@@ -89,7 +89,9 @@ return;
 
 
 void setup() {
-  // put your setup code here, to run once:
+  Serial.begin(115200);
+  delay(2000);
+  Serial.println("running setup");
 
   pinMode(ONBOARD_LED, OUTPUT);
   pinMode(statusLed, OUTPUT);
@@ -98,9 +100,6 @@ void setup() {
   pinMode(in0, INPUT_PULLDOWN);
   pinMode(in1, INPUT_PULLDOWN);
   pinMode(in2, INPUT_PULLDOWN);
-
-  Serial.begin(115200);
-  delay(2000);
  
   WiFi.begin(ssid, password);
 
@@ -196,19 +195,19 @@ void loop() {
       if(in0Current != in0Previous){
         if(in0Current == true){     //rising edge
           outPayload = "1";
-          Serial.println ("Button 0 Pressed!!!");
           if (client.publish(outTopic0, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic0);
+            Serial.println(": 1");
           }else {
-              Serial.println("Publish failed");
+              Serial.print("Publish failed");
           }
         }else{    //falling edge
           outPayload = "0";
-          Serial.println ("Button 0 Released!!!");
           if (client.publish(outTopic0, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic0);
+            Serial.println(": 0");
           }else {
-              Serial.println("Publish failed");
+              Serial.print("Publish failed");
           }
         }
         in0Previous = in0Current;   
@@ -222,17 +221,17 @@ void loop() {
       if(in1Current != in1Previous){
         if(in1Current == true){     //rising edge
           outPayload = "1";
-          Serial.println ("Button 1 Pressed!!!");
           if (client.publish(outTopic1, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic1);
+            Serial.println(": 1");
           }else {
               Serial.println("Publish failed");
           }
         }else{    //falling edge
           outPayload = "0";
-          Serial.println ("Button 1 Released!!!");
           if (client.publish(outTopic1, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic1);
+            Serial.println(": 0");
           }else {
               Serial.println("Publish failed");
           }
@@ -249,17 +248,17 @@ void loop() {
       if(in2Current != in2Previous){
         if(in2Current == true){     //rising edge
           outPayload = "1";
-          Serial.println ("Button 2 Pressed!!!");
           if (client.publish(outTopic2, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic2);
+            Serial.println(": 1");
           }else {
               Serial.println("Publish failed");
           }
         }else{    //falling edge
           outPayload = "0";
-          Serial.println ("Button 2 Released!!!");
           if (client.publish(outTopic2, (char*) outPayload.c_str())){
-            Serial.println("Publish ok");
+            Serial.print(outTopic2);
+            Serial.println(": 0");
           }else {
               Serial.println("Publish failed");
           }
