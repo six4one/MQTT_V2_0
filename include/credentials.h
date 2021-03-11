@@ -1,6 +1,6 @@
-const char* ssid = "70 Kenwell 2.4GHz";
-const char* password =  "k2fd4312";
-const char* mqttServer = "192.168.1.21";
-const int mqttPort = 1883;
-const char* mqttUser = "fzecca";
-const char* mqttPassword = "Nemesis1";
+const char* ssid = "SSID";                  //your wifi network's SSID
+const char* password =  "PASSWORD";         //your wifi access password
+const char* mqttServer = "###.###.###.###"; //your MQTT server's IP address
+const int mqttPort = ####;                  //your MQTT server's port number
+const char* mqttUser = "user";              //your MQTT user name
+const char* mqttPassword = "password";      //your MQTT password

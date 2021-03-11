@@ -2,7 +2,7 @@
 #include <wire.h>
 #include <WiFi.h>
 #include <PubSubClient.h>
-#include "credentials.h"
+#include "D:\Personal\Fausto\Documents\PlatformIO\Projects\Home Network Credentials\credentials.h"
 #include <SPI.h>
 #include "Adafruit_MAX31855.h"
 #include "topicList.h"
